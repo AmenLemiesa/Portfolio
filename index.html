@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amen Lemiesa</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <section class="hero-section" id = "hero">
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Letter A (first letter) -->
+                <polygon id="A" class="letter" points="3.4,236.2 42.4,214.8 66,236.2 43.8,237 35.4,229.4 24,236.2" data-letter="A"/>
+                <!-- ... existing SVG ... -->
+                <polygon id="A1" class="letter" points="674.4,235.2 682.8,206.2 856.2,236.8 709.6,236 695.8,218.4 695,236 675.8,234.8" data-letter="A"/>
+            </svg>
+        </div>
+        <div class="controls">
+            <button id="animationBtn" class="control-btn">&gt;&gt; INITIALIZE</button>
+        </div>
+        <div class="scroll-arrow" onclick="scrollToSection('about')">
+            <div class="arrow-container">
+                <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 10L12 15L17 10" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+                    <path d="M7 4L12 9L17 4" stroke="white" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" opacity="0.5"/>
+                </svg>
+                <div class="arrow-text">Scroll Down</div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="nav-section">
+        <div class="section-content">
+          <h2 class="section-title">About Me</h2>
+          <div class="section__text">
+            <div class="about-left">
+                <div class="typing-container" id="typing-line-1">
+                    <p class="section__text__p1" id="typewriter-1"></p>
+                </div>
+                <div class="typing-container" id="typing-line-2">
+                    <h1 class="title" id="typewriter-2"></h1>
+                </div>
+                <div class="typing-container" id="typing-line-3">
+                    <p class="section__text__p2" id="typewriter-3"></p>
+                </div>
+                <div class="typing-container" id="typing-line-4">
+                    <p class="about-description" id="typewriter-4"></p>
+                </div>
+                <div class="typing-container" id="typing-line-5">
+                    <div class="btn-container">
+                      <a href="assets/RESUME.pdf" class="section-cta" target="_blank" rel="noopener noreferrer">Download Resume</a>
+                      <a href="#projects" class="btn-secondary">View Projects</a>
+                    </div>
+                </div>
+            </div>
+            <div class="about-right">
+                <div class="typing-container" id="typing-line-6">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">1st</span>
+                            <span class="stat-label">Year Student</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">CS</span>
+                            <span class="stat-label">Major</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Learning</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="typing-container" id="typing-line-7">
+                    <div id="socials-container">
+                      <img src="assets/linkedin.png" alt="My LinkedIn Profile" id="linkedin" class="icon"
+                           onclick="location.href='https://www.linkedin.com/in/amen-lemiesa-942bb1233'"> 
+                      <img src="assets/github.png" alt="My GitHub Profile" id="github" class="icon"
+                           onclick="location.href='https://github.com/AmenLemiesa'"> 
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <section id="projects" class="nav-section">
+        <div class="section-content">
+            <h2 class="section-title">Projects</h2>
+            <p class="section-description">
+                What I'm currently working on - a collection of ongoing experiments and innovations.
+            </p>
+            <div class="projects-grid">
+                <div class="project-box">
+                    <div class="project-title">AI-Powered Web Scraper</div>
+                    <div class="project-description">
+                        Building an intelligent web scraping tool that adapts to different website structures using machine learning algorithms and natural language processing.
+                    </div>
+                    <div class="project-status">In Development</div>
+                </div>
+                <div class="project-box">
+                    <div class="project-title">Real-Time Chat Application</div>
+                    <div class="project-description">
+                        Developing a full-stack chat application with WebSocket integration, user authentication, and modern React frontend with Node.js backend.
+                    </div>
+                    <div class="project-status">Active</div>
+                </div>
+                <div class="project-box">
+                    <div class="project-title">Computer Vision System</div>
+                    <div class="project-description">
+                        Creating an object detection and classification system using TensorFlow and OpenCV for real-time image processing applications.
+                    </div>
+                    <div class="project-status">Research Phase</div>
+                </div>
+            </div>
+            <div style="margin-top: 3rem;">
+                <a href="#archive" class="section-cta">View All Projects</a>
+            </div>
+        </div>
+    </section>
+    <section id="archive" class="nav-section">
+        <div class="section-content">
+            <h2 class="section-title">Archive</h2>
+            <p class="section-description">
+                A comprehensive repository of completed projects, experiments, and digital artifacts. 
+                The complete journey through code, design, and innovation.
+            </p>
+            <a href="#hero" class="section-cta">Back to Top</a>
+        </div>
+    </section>
+    <script src="js/main.js" defer></script>
+</body>
+</html> 

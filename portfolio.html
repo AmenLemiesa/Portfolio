@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amen Lemiesa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --highlight-color: #ffffff;
+            --stroke-color: #ffffff;
+            --accent-color: #ffffff;
+            --secondary-bg: #000000;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', monospace;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+
+        .logo-container {
+            margin-bottom: 3rem;
+            animation: glowPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5)); }
+        }
+
+        .logo-svg {
+            width: min(90vw, 80vh * 1.72);
+            height: auto;
+            max-width: none;
+            aspect-ratio: 860/300;
+        }
+
+        .letter {
+            fill: transparent;
+            stroke: var(--stroke-color);
+            stroke-width: 3;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            opacity: 0;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        }
+
+        .letter:hover {
+            fill: rgba(255, 255, 255, 0.2);
+            stroke: var(--highlight-color);
+        }
+
+        .letter.active {
+            fill: var(--highlight-color);
+            stroke: var(--highlight-color);
+            filter: drop-shadow(0 0 15px var(--highlight-color));
+            opacity: 1;
+        }
+
+        .letter.visible {
+            opacity: 1;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .control-btn {
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
+            color: var(--highlight-color);
+            border: 2px solid var(--highlight-color);
+            border-radius: 0;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .control-btn:hover::before {
+            left: 100%;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(45deg, #2d2d2d, #1a1a1a);
+        }
+
+        .control-btn.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll Arrow */
+        .scroll-arrow {
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeInBounce 1s ease-out 3s forwards;
+        }
+
+        @keyframes fadeInBounce {
+            0% { opacity: 0; transform: translateY(-20px); }
+            50% { opacity: 1; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .arrow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .arrow-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .arrow-svg {
+            width: 60px;
+            height: 60px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .arrow-text {
+            margin-top: 10px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--highlight-color);
+            text-transform: uppercase;
+            display: none;
+        }
+
+        /* Navigation Sections */
+        .nav-section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .nav-section:nth-child(even) {
+            background: var(--bg-color);
+        }
+
+        .nav-section:nth-child(odd) {
+            background: var(--bg-color);
+        }
+
+        .section-content {
+            text-align: center;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section-content.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+
+        .section-cta {
+            display: inline-block;
+            padding: 15px 35px;
+            border: 2px solid var(--highlight-color);
+            color: var(--highlight-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        }
+
+        .section-cta:hover {
+            background: var(--highlight-color);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Typing Effect */
+        .typing-container {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .typing-container.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Project Boxes */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 1000px;
+        }
+
+        .project-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: left;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-box.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-box:hover {
+            transform: translateY(-10px);
+            border-color: var(--highlight-color);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--highlight-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-svg {
+                width: min(95vw, 70vh * 1.72);
+                height: auto;
+            }
+
+            .control-btn {
+                padding: 15px 30px;
+                font-size: 14px;
+            }
+
+            .nav-section {
+                padding: 80px 30px;
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 10vw, 4rem);
+            }
+
+            .section-description {
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .project-box {
+                padding: 1.5rem;
+            }
+        }
+
+        .section__text {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-left {
+            text-align: left;
+        }
+
+        .about-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .section__text__p1 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            color: var(--highlight-color);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .section__text__p2 {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        .highlight-text {
+            color: var(--highlight-color);
+            font-weight: 600;
+        }
+
+        .about-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            padding: 12px 25px;
+            font-family: 'Courier New', monospace;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--highlight-color);
+            color: var(--highlight-color);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-family: 'Courier New', monospace;
+            border: 2px solid var(--highlight-color);
+            background: transparent;
+            color: var(--highlight-color);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+        }
+
+        .btn-color-1:hover,
+        .btn-color-2:hover {
+            background-color: var(--highlight-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        #socials-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            background: white;
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .icon:hover {
+            opacity: 1;
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .section__text {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .about-left {
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-item {
+                padding: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <section class="hero-section" id = "hero">
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Letter A (first letter) -->
+                <polygon id="A" class="letter" points="3.4,236.2 42.4,214.8 66,236.2 43.8,237 35.4,229.4 24,236.2" data-letter="A"/>
+                
+                <!-- Letter M -->
+                <polygon id="M" class="letter" points="70,236.6 54.8,208.4 70.8,199.2 103,222.8 84.6,191.6 97.6,184.8 152.6,235.8 138,235.8 119,215.2 123.6,236.6 100.6,236.6 81.6,220.6 90,236.6" data-letter="M"/>
+                
+                <!-- Letter E -->
+                <polygon id="E" class="letter" points="103.2,181.4 123.8,169.8 137.6,185.8 125.2,191.2 129.2,198 144.4,193.6 159.6,212.6 149.8,218 156.6,226.4 170.4,221.8 184.6,235.6 157.4,236.2" data-letter="E"/>
+                
+                <!-- Letter N -->
+                <polygon id="N" class="letter" points="187,235.2 129.6,167.2 158.6,151.2 196.8,215.2 174.6,142.8 213.6,121.4 215.2,235.8 205.2,236.6 170.8,194.6 199.2,235.8" data-letter="N"/>
+                
+                <!-- Letter L -->
+                <polygon id="L" class="letter" points="218,120.6 221,235 281.4,235.8 290.6,191.6 244.6,223.6 321,140.4" data-letter="L"/>
+                
+                <!-- Letter E1 (second E) -->
+                <polygon id="E1" class="letter" points="285,235.8 327.2,141.2 376,150.4 360.8,176.4 338.6,164.2 335.2,177.2 353,186.2 339.8,209.2 321.4,198.6 314.2,212.2 337,221.4 333.2,235.8" data-letter="E"/>
+                
+                <!-- Letter M1 (second M) -->
+                <polygon id="M1" class="letter" points="340.8,235.4 382.8,151.6 421,158.4 392,221 436.4,161.4 464.6,166.8 436.4,234.8 397.4,235.4 431.8,190.4 390.4,234.8 372.2,235.4 385.2,185.2 363,235.4" data-letter="M"/>
+                
+                <!-- Letter I -->
+                <polygon id="I" class="letter" points="468.4,167.4 524.2,177.4 517.4,191.8 502.8,190.4 487.6,225.4 504.4,227 502,236.2 440.2,235.4 447.8,222.4 462.4,223.2 481.4,186.6 461.6,185" data-letter="I"/>
+                
+                <!-- Letter E2 (third E) -->
+                <polygon id="E2" class="letter" points="528.2,178 587.8,188 580,199.4 539.6,194.2 535.8,201.8 575.4,204.8 568.6,215.4 531.2,212.4 528.8,220.8 563.2,222.4 556.4,235.4 506,236" data-letter="E"/>
+                
+                <!-- Letter S -->
+                <polygon id="S" class="letter" points="590.4,188.8 679.8,205.6 676,217 628,204 624.2,211.6 675.4,219.2 670.8,236 560.6,235.4 570.4,223.6 615.4,228.2 618.4,214.4 576.8,210.8" data-letter="S"/>
+                
+                <!-- Letter A1 (second A) -->
+                <polygon id="A1" class="letter" points="674.4,235.2 682.8,206.2 856.2,236.8 709.6,236 695.8,218.4 695,236 675.8,234.8" data-letter="A"/>
+            </svg>
+        </div>
+
+        <div class="controls">
+            <button id="animationBtn" class="control-btn">&gt;&gt; INITIALIZE</button>
+        </div>
+
+        <div class="scroll-arrow" onclick="scrollToSection('about')">
+            <div class="arrow-container">
+                <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 10L12 15L17 10" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+                    <path d="M7 4L12 9L17 4" stroke="white" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" opacity="0.5"/>
+                </svg>
+                <div class="arrow-text">Scroll Down</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="nav-section">
+        <div class="section-content">
+          <h2 class="section-title">About Me</h2>
+          <div class="section__text">
+            <div class="about-left">
+                <div class="typing-container" id="typing-line-1">
+                    <p class="section__text__p1" id="typewriter-1"></p>
+                </div>
+                <div class="typing-container" id="typing-line-2">
+                    <h1 class="title" id="typewriter-2"></h1>
+                </div>
+                <div class="typing-container" id="typing-line-3">
+                    <p class="section__text__p2" id="typewriter-3"></p>
+                </div>
+                <div class="typing-container" id="typing-line-4">
+                    <p class="about-description" id="typewriter-4"></p>
+                </div>
+                <div class="typing-container" id="typing-line-5">
+                    <div class="btn-container">
+                      <a href="./assets/RESUME.pdf" class="section-cta" target="_blank" rel="noopener noreferrer">Download Resume</a>
+                      <a href="#projects" class="btn-secondary">View Projects</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-right">
+                <div class="typing-container" id="typing-line-6">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">1st</span>
+                            <span class="stat-label">Year Student</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">CS</span>
+                            <span class="stat-label">Major</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">3+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">∞</span>
+                            <span class="stat-label">Learning</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="typing-container" id="typing-line-7">
+                    <div id="socials-container">
+                      <img src="assets/linkedin.png" alt="My LinkedIn Profile" id="linkedin" class="icon"
+                           onclick="location.href='https://www.linkedin.com/in/amen-lemiesa-942bb1233'"> 
+                      <img src="assets/github.png" alt="My GitHub Profile" id="github" class="icon"
+                           onclick="location.href='https://github.com/AmenLemiesa'"> 
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+
+    <section id="projects" class="nav-section">
+        <div class="section-content">
+            <h2 class="section-title">Projects</h2>
+            <p class="section-description">
+                What I'm currently working on - a collection of ongoing experiments and innovations.
+            </p>
+            <div class="projects-grid">
+                <div class="project-box">
+                    <div class="project-title">AI-Powered Web Scraper</div>
+                    <div class="project-description">
+                        Building an intelligent web scraping tool that adapts to different website structures using machine learning algorithms and natural language processing.
+                    </div>
+                    <div class="project-status">In Development</div>
+                </div>
+                <div class="project-box">
+                    <div class="project-title">Real-Time Chat Application</div>
+                    <div class="project-description">
+                        Developing a full-stack chat application with WebSocket integration, user authentication, and modern React frontend with Node.js backend.
+                    </div>
+                    <div class="project-status">Active</div>
+                </div>
+                <div class="project-box">
+                    <div class="project-title">Computer Vision System</div>
+                    <div class="project-description">
+                        Creating an object detection and classification system using TensorFlow and OpenCV for real-time image processing applications.
+                    </div>
+                    <div class="project-status">Research Phase</div>
+                </div>
+            </div>
+            <div style="margin-top: 3rem;">
+                <a href="#archive" class="section-cta">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="archive" class="nav-section">
+        <div class="section-content">
+            <h2 class="section-title">Archive</h2>
+            <p class="section-description">
+                A comprehensive repository of completed projects, experiments, and digital artifacts. 
+                The complete journey through code, design, and innovation.
+            </p>
+            <a href="#hero" class="section-cta">Back to Top</a>
+        </div>
+    </section>
+
+    <script>
+        // Logo Interaction
+        const letters = document.querySelectorAll('.letter');
+        const animationBtn = document.getElementById('animationBtn');
+        let hasAnimated = false;
+
+        // Individual letter click functionality
+        letters.forEach(letter => {
+            letter.addEventListener('click', () => {
+                letter.classList.toggle('active');
+            });
+
+            letter.addEventListener('mouseenter', () => {
+                if (!letter.classList.contains('active')) {
+                    letter.style.fill = 'rgba(255, 255, 255, 0.2)';
+                    letter.style.stroke = 'var(--highlight-color)';
+                }
+            });
+
+            letter.addEventListener('mouseleave', () => {
+                if (!letter.classList.contains('active')) {
+                    letter.style.fill = 'transparent';
+                    letter.style.stroke = 'var(--stroke-color)';
+                }
+            });
+        });
+
+        // Animation sequence
+        function runAnimation() {
+            // Clear all first
+            letters.forEach(letter => {
+                letter.classList.remove('active', 'visible');
+            });
+            
+            // Animate letters one by one from left to right
+            const letterOrder = ['A', 'M', 'E', 'N', 'L', 'E1', 'M1', 'I', 'E2', 'S', 'A1'];
+            
+            letterOrder.forEach((letterId, index) => {
+                setTimeout(() => {
+                    const letter = document.getElementById(letterId);
+                    if (letter) {
+                        letter.classList.add('visible', 'active');
+                    }
+                }, index * 200);
+            });
+            
+            // Show animation button after first run
+            if (!hasAnimated) {
+                setTimeout(() => {
+                    animationBtn.classList.add('show');
+                    hasAnimated = true;
+                }, letterOrder.length * 200 + 1000);
+            }
+        }
+
+        // Animation button click handler
+        animationBtn.addEventListener('click', () => {
+            runAnimation();
+            
+            // Temporarily disable button during animation
+            animationBtn.style.opacity = '0.5';
+            animationBtn.disabled = true;
+            
+            setTimeout(() => {
+                animationBtn.style.opacity = '1';
+                animationBtn.disabled = false;
+            }, 11 * 200 + 500);
+        });
+
+        // Typing Effect Function
+        function typeWriter(elementId, text, speed = 50) {
+            return new Promise((resolve) => {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    } else {
+                        element.classList.add('typing-done');
+                        resolve();
+                    }
+                }
+                type();
+            });
+        }
+
+        // About Section Typing Animation
+        let aboutAnimationTriggered = false;
+        
+        async function triggerAboutAnimation() {
+            if (aboutAnimationTriggered) return;
+            aboutAnimationTriggered = true;
+            
+            const lines = [
+                { id: 'typing-line-1', typewriterId: 'typewriter-1', text: 'Hello, I\'m' },
+                { id: 'typing-line-2', typewriterId: 'typewriter-2', text: 'Amen Lemiesa' },
+                { id: 'typing-line-3', typewriterId: 'typewriter-3', text: 'Computer Science Student at the University of Michigan' },
+                { id: 'typing-line-4', typewriterId: 'typewriter-4', text: 'Passionate about creating innovative solutions through code. I love exploring new technologies, building meaningful projects, and pushing the boundaries of what\'s possible in the digital world.' },
+                { id: 'typing-line-5' },
+                { id: 'typing-line-6' },
+                { id: 'typing-line-7' }
+            ];
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const container = document.getElementById(line.id);
+                container.classList.add('show');
+                
+                if (line.text) {
+                    await typeWriter(line.typewriterId, line.text, line.id === 'typing-line-4' ? 15 : 30);
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+        }
+
+        // Scroll to section function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionContent = entry.target.querySelector('.section-content');
+                    sectionContent.classList.add('animate');
+                    
+                    // Trigger about section typing animation
+                    if (entry.target.id === 'about') {
+                        setTimeout(() => triggerAboutAnimation(), 500);
+                    }
+                    
+                    // Animate project boxes
+                    if (entry.target.id === 'projects') {
+                        const projectBoxes = entry.target.querySelectorAll('.project-box');
+                        projectBoxes.forEach((box, index) => {
+                            setTimeout(() => {
+                                box.classList.add('animate');
+                            }, index * 200);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all nav sections
+        document.querySelectorAll('.nav-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Run initial animation when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                runAnimation();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
