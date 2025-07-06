@@ -97,7 +97,7 @@ async function triggerAboutAnimation() {
     const lines = [
         { id: 'typing-line-1', typewriterId: 'typewriter-1', text: 'Hello, I\'m' },
         { id: 'typing-line-2', typewriterId: 'typewriter-2', text: 'Amen Lemiesa' },
-        { id: 'typing-line-3', typewriterId: 'typewriter-3', text: 'Computer Science Student at the University of Michigan' },
+        { id: 'typing-line-3', typewriterId: 'typewriter-3', text: 'Computer Science Student at the University of <span class="maize-glow">Michigan</span>' },
         { id: 'typing-line-4', typewriterId: 'typewriter-4', text: 'Passionate about creating innovative solutions through code. I love exploring new technologies, building meaningful projects, and pushing the boundaries of what\'s possible in the digital world.' },
         { id: 'typing-line-5' },
         { id: 'typing-line-6' },
@@ -110,11 +110,41 @@ async function triggerAboutAnimation() {
         container.classList.add('show');
         
         if (line.text) {
-            await typeWriter(line.typewriterId, line.text, line.id === 'typing-line-4' ? 15 : 30);
+            if (line.id === 'typing-line-3') {
+                // Custom typewriter for glowing maize Michigan
+                await typeWriterHTML(line.typewriterId, line.text, 30);
+            } else {
+                await typeWriter(line.typewriterId, line.text, line.id === 'typing-line-4' ? 15 : 30);
+            }
         }
         
         await new Promise(resolve => setTimeout(resolve, 300));
     }
+}
+
+// Custom typewriter for HTML (for glowing Michigan)
+function typeWriterHTML(elementId, html, speed = 50) {
+    return new Promise((resolve) => {
+        const element = document.getElementById(elementId);
+        let i = 0;
+        let tag = false;
+        let temp = '';
+        function type() {
+            if (i < html.length) {
+                let char = html.charAt(i);
+                temp += char;
+                if (char === '<') tag = true;
+                if (char === '>') tag = false;
+                element.innerHTML = temp;
+                i++;
+                setTimeout(type, tag ? 0 : speed);
+            } else {
+                element.classList.add('typing-done');
+                resolve();
+            }
+        }
+        type();
+    });
 }
 
 // Scroll to section function
