@@ -549,7 +549,7 @@ body {
 
 .maize-glow {
     color: #FFCB05;
-    text-shadow: 0 0 8px #FFCB05, 0 0 16px #FFCB05, 0 0 24px #FFCB05;
+    text-shadow: 0 0 3px #FFCB05, 0 0 6px #FFCB05;
     font-weight: 700;
     transition: color 0.3s, text-shadow 0.3s;
 } 
