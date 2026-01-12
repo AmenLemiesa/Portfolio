@@ -11,6 +11,26 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="assets/logoDark.png">
 </head>
+<div class="expanded-item" id="expanded-item">
+    <div class="close-button" onclick="collapseItem()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+    </div>
+    <div class="expanded-content">
+        <div class="expanded-image">
+            <img src="" alt="">
+        </div>
+        <div class="expanded-video">
+            <iframe src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="expanded-description">
+            <h3></h3>
+            <p></p>
+        </div>
+    </div>
+</div>
 <body>
     <section class="hero-section" id = "hero">
         <div class="logo-container">
@@ -171,10 +191,40 @@
         <div class="section-content">
             <h2 class="section-title">Archive</h2>
             <p class="section-description">
-                Coming soon...
-                <!-- A comprehensive repository of completed projects, experiments, and digital artifacts. 
-                The complete journey through code, design, and innovation. -->
+                Cleaning up...
             </p>
+            <div class="Arduino-container">
+                <div class="Arduino-grid">
+                    <div class="Arduino-item" onclick="expandItem(this, 'Arduino Traffic Light Intersection', 'Simulates a intersection with four sets of traffic lights (three LEDs). Just as a traffic light would sense traffic at an intersection and begin the sequence to stop oncoming traffic, when the button is pressed the system activates the yellow light for three seconds then makes sure all parties have come to a complete stop before making green', '','https://www.youtube.com/embed/RzIzA-gc59k?si=pvUhpRVmOL-OtRpg&amp;controls=0')">
+                        <div class="Arduino-description">
+                            <h3>Arduino Traffic Light Intersection</h3>
+                            <br>
+                            <p>Button alerts traffic light to switch flow of traffic</p>
+                        </div>
+                    </div>
+                    <div class="Arduino-item" onclick="expandItem(this, 'Ultrasonic Distance Scanner', 'The sensor attached to a servo sweeps 180° (10° at a time) displaying a color, red, yellow, green, and blue, depending on how close to far it is, respectively. Afterwards the shortest poistion and distance is displayed on the OLED display and the servo returns to said position. ', '','https://www.youtube.com/embed/MRlaxdYZpe0?si=JopsnbP53JssThlz&amp;controls=0')">
+                        <div class="Arduino-description">
+                            <h3>Ultrasonic Distance Radar</h3>
+                            <br>
+                            <p>Sweeps 180° of distance then returns to the closest position</p>
+                        </div>
+                    </div>
+                    <div class="Arduino-item" onclick="expandItem(this, 'Temp Humidity and Air Quality Arduino Monitor', 'Pretty self explanatory!', './assets/tempIMG.png','')">
+                        <div class="Arduino-description">
+                            <h3>Temp Humidity and Air Quality Arduino Monitor</h3>
+                            <br>
+                            <p>In the title...</p>
+                        </div>
+                    </div>
+                    <div class="Arduino-item" onclick="expandItem(this, 'Moving LED on Servo', 'The potentiometer is mapped such that when its values from 0 to 1023 are inputted they are scaled to adjust the servo. The button is being continously pressed during this demonstration.', '','https://www.youtube.com/embed/yYJzxAyLz8A?si=8D6VYKpC5qEY7oZg&amp;controls=0')">
+                        <div class="Arduino-description">
+                            <h3>Moving LED on Servo</h3>
+                            <br>
+                            <p>Potentiometer controlling servomotor while button activates LED</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
             <a href="#hero" class="section-cta">Back to Top</a>
         </div>
     </section>

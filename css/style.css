@@ -553,3 +553,142 @@ body {
     font-weight: 700;
     transition: color 0.3s, text-shadow 0.3s;
 } 
+
+
+.Arduino-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.Arduino-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  width: 70%;
+}
+
+.Arduino-item {
+  background-color: #2b2b2b;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Arduino-item:hover .Arduino-image img {
+  transform: scale(0.95);
+  filter: brightness(110%);
+}
+
+.Arduino-image {
+  overflow: hidden;
+}
+
+.Arduino-image img {
+  width: 40vh;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.Arduino-description h3 {
+  margin-top: 0;
+  color: white;
+}
+
+.Arduino-description p {
+  color: #bbb;
+}
+
+.expanded-item {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 80%;
+  height: 80%;
+  background-color: #1c1c1c;
+  border-radius: 10px;
+  box-shadow: 0 0 1000px rgba(0, 0, 0, 1);
+  overflow: hidden;
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.3s ease;
+  display: none; /* Hide by default */
+  justify-content: center;
+  align-items: center;
+}
+
+.expanded-item.active {
+  display: flex; /* Show when active */
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.expanded-content {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.expanded-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+}
+
+.expanded-description {
+  padding: 40px;
+}
+
+.expanded-description h3 {
+  margin-top: 0;
+  color: white;
+}
+
+.expanded-description p {
+  color: #bbb;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.close-button img {
+  width: 100%;
+  height: 100%;
+}
+
+.close-button:hover {
+  transform: rotate(90deg);
+}
+
+.expanded-video iframe, .expanded-image {
+  margin: 2rem;
+  border: 2px solid #444; /* example of custom border */
+  border-radius: 2%; /* example of border radius */
+}
+
+.expanded-video, .expanded-image {
+  display: none; /* Hide by default */
+}
+
+.expanded-item.active .expanded-video, .expanded-image {
+  display: block; /* Show when the expanded item is active and there's a video source */
+}

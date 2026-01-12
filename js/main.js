@@ -196,3 +196,45 @@ window.addEventListener('load', () => {
         runAnimation();
     }, 500);
 }); 
+
+function expandItem(item, title, description, imageSrc, videoSrc) {
+    let expandedItem = document.getElementById('expanded-item');
+    let expandedImageContainer = expandedItem.querySelector('.expanded-image');
+    let expandedImage = expandedItem.querySelector('.expanded-image img');
+    let expandedTitle = expandedItem.querySelector('.expanded-description h3');
+    let expandedDescription = expandedItem.querySelector('.expanded-description p');
+    let expandedVideoContainer = expandedItem.querySelector('.expanded-video');
+    let expandedVideo = expandedItem.querySelector('.expanded-video iframe');
+
+    expandedImage.src = imageSrc;
+    expandedImage.alt = title;
+    expandedTitle.textContent = title;
+    expandedDescription.textContent = description;
+    expandedVideo.src = videoSrc;
+
+    if (videoSrc == '') {
+        expandedVideoContainer.style.display = 'none';
+        expandedVideo.src = '';
+    } else {
+        expandedVideoContainer.style.display = 'block';
+        expandedVideo.src = videoSrc;
+    }
+
+    if (imageSrc == '') {
+        expandedImageContainer.style.display = 'none';
+        expandedImage.src = '';
+    } else {
+        expandedImageContainer.style.display = 'block';
+        expandedImage.src = imageSrc;
+    }
+
+    expandedItem.classList.add('active');
+}
+
+function collapseItem() {
+    let expandedItem = document.getElementById('expanded-item');
+    let expandedVideo = expandedItem.querySelector('.expanded-video iframe');
+
+    expandedItem.classList.remove('active');
+    expandedVideo.src = '';
+}
