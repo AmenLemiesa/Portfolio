@@ -98,7 +98,6 @@ async function triggerAboutAnimation() {
         { id: 'typing-line-1', typewriterId: 'typewriter-1', text: 'Hello, I\'m' },
         { id: 'typing-line-2', typewriterId: 'typewriter-2', text: 'Amen Lemiesa' },
         { id: 'typing-line-3', typewriterId: 'typewriter-3', text: 'Computer Science Student at the University of <span class="maize-glow">Michigan</span>' },
-        { id: 'typing-line-4', typewriterId: 'typewriter-4', text: 'Passionate about creating innovative solutions through code. I love exploring new technologies, building meaningful projects, and pushing the boundaries of what\'s possible in the digital world.' },
         { id: 'typing-line-5' },
         { id: 'typing-line-6' },
         { id: 'typing-line-7' }
